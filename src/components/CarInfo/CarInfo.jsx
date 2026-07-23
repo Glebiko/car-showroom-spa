@@ -7,7 +7,7 @@ const CarInfo = ({ car }) => {
   return (
     <div className={styles.carInfo}>
         <img 
-          src={`/images/${car.id}.webp`}
+          src={`/car-showroom-spa/images/${car.id}.webp`}
           alt={car.title} 
           className={styles.mainImage} 
         />

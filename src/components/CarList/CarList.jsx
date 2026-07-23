@@ -34,7 +34,7 @@ const CarList = ({ cars, loading, selectedId, onSelectCar }) => {
             <Link to={`/vehicles/${car.id}`} className={styles.linkWrapper}>
               {isSelected && <span className={styles.favoriteBadge}>Обране</span>}
               
-              <img src={`/images/${car.id}.webp`} alt={car.title} className={styles.image} />
+              <img src={`/car-showroom-spa/images/${car.id}.webp`} alt={car.title} className={styles.image} />
               <h3 className={styles.title}>{car.title}</h3>
               <p className={styles.price}>Ціна: {car.price}$</p>
               <p className={styles.brand}>Бренд: {car.brand}</p>
