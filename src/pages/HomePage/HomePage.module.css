@@ -1,0 +1,38 @@
+.homePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sortContainer {
+  padding: 5px;
+  align-self: left;
+}
+
+.sortLabel {
+  margin-right: 10px;
+}
+
+.sortSelect {
+  padding: 10px 15px;
+  border: 1px solid var(--accent-color);
+  border-radius: 0.25rem;
+  background: transparent;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  text-align: center;
+}
+
+.sortSelect:focus {
+  outline: none;
+}

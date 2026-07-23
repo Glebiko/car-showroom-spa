@@ -1,0 +1,42 @@
+.queryContainer {
+  position: relative;
+  width: 100%;
+  max-width: 400px; 
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+.input {
+  padding: var(--button-padding);
+  width: 100%; 
+  background-color: transparent;
+  border: 1px solid var(--accent-color);
+  border-radius: 0.25rem;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  padding-right: 35px; 
+}
+
+.input::placeholder {
+  color: #fff;
+  opacity: 0.8;
+  font-size: 1rem;
+}
+
+.clearButton {
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: #fff;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}

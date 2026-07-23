@@ -1,0 +1,67 @@
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: var(--accent-color);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.title {
+  margin: 0 0 5px 0;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.input,
+.text {
+  width: 100%;
+  padding: var(--button-padding);
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.25rem;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input::placeholder,
+.text::placeholder {
+  color: #fff;
+  opacity: 0.7;
+}
+
+.input:focus,
+.text:focus {
+  border-color: #fff;
+}
+
+.text {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.button {
+  padding: var(--button-padding);
+  border-radius: 0.25rem;
+  border: 1px solid #fff;
+  background-color: #fff;
+  color: var(--accent-color);
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  align-self: flex-start;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.errorText {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  margin: 0;
+}
