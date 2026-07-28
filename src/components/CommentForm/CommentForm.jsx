@@ -1,62 +1,72 @@
-import { useState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import styles from './CommentForm.module.css';
+import SubmitButton from './SubmitButton';
 
-const CommentForm = ({ onAddComment }) => {
-  const [author, setAuthor] = useState('');
-  const [text, setText] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+const addCommentAction = async (prevState, formData) => {
+  const author = formData.get('authorName');
+  const text = formData.get('commentText');
 
   const MAX_AUTHOR_LENGTH = 20;
   const MAX_TEXT_LENGTH = 200;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrorMessage('');
+  if (!author.trim() || !text.trim()) {
+    setErrorMessage('Будь ласка, заповніть усі поля.');
+    return;
+  }
 
-    if (!author.trim() || !text.trim()) {
-      setErrorMessage('Будь ласка, заповніть усі поля.');
-      return;
-    }
+  if (author.length > MAX_AUTHOR_LENGTH) {
+    setErrorMessage(
+      `Ім'я надто довге (максимум ${MAX_AUTHOR_LENGTH} символів).`,
+    );
+    return;
+  }
 
-    if (author.length > MAX_AUTHOR_LENGTH) {
-      setErrorMessage(`Ім'я надто довге (максимум ${MAX_AUTHOR_LENGTH} символів).`);
-      return;
-    }
+  if (text.length > MAX_TEXT_LENGTH) {
+    setErrorMessage(
+      `Коментар надто довгий (максимум ${MAX_TEXT_LENGTH} символів).`,
+    );
+    return;
+  }
 
-    if (text.length > MAX_TEXT_LENGTH) {
-      setErrorMessage(`Коментар надто довгий (максимум ${MAX_TEXT_LENGTH} символів).`);
-      return;
-    }
+  await new Promise((resolve) => setTimeout(resolve, 800));
 
-    onAddComment(author.trim(), text.trim());
-    setAuthor('');
-    setText('');
+  return {
+    success: true,
+    payload: { author: author.trim(), text: text.trim() },
   };
+};
+
+const CommentForm = ({ onAddComment }) => {
+  const [state, formAction] = useActionState(addCommentAction, null);
+
+  useEffect(() => {
+    if (state?.success && state?.payload) {
+      onAddComment(state.payload.author, state.payload.text);
+      const form = document.querySelector(`.${styles.commentForm}`);
+      if (form) form.reset();
+    }
+  }, [state, onAddComment]);
 
   return (
-    <form onSubmit={handleSubmit} className={styles.commentForm}>
+    <form action={formAction} className={styles.commentForm}>
       <h4 className={styles.title}>Залишити відгук</h4>
-      
-      {errorMessage && <p className={styles.errorText}>{errorMessage}</p>}
 
-      <input 
-        type="text" 
+      {state?.error && <p className={styles.errorText}>{state.error}</p>}
+
+      <input
+        name="authorName"
+        type="text"
         placeholder="Ваше ім'я"
         className={styles.input}
-        value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-        maxLength={MAX_AUTHOR_LENGTH + 5}
-        required 
-      />
-      <textarea 
-        placeholder="Ваш коментар..."
-        className={styles.text}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        maxLength={MAX_TEXT_LENGTH + 20}
         required
       />
-      <button type="submit" className={styles.button}>Надіслати</button>
+      <textarea
+        name="commentText"
+        placeholder="Ваш коментар..."
+        className={styles.text}
+        required
+      />
+      <SubmitButton />
     </form>
   );
 };
